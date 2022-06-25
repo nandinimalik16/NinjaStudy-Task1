@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="box">
+        <div class="stu">
+          <a href="/student/signup">
+            <img src="{% static 'images/stu1.png' %}" alt="" />
+            <h3>Student</h3>
+          </a>
+        </div>
+        <div class="teach">
+          <a href="/teacher/signup">
+            <img src="{% static 'images/teach2.png' %}" alt="" />
+            <h3>Teacher</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

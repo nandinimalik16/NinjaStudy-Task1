@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/teacherSignUp.css' %}" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="signUp">
+        <h2>Sign Up</h2>
+        <form id="sign" method="post">
+          <label for="">Full Name</label>
+          <br />
+          <input
+            type="text"
+            name="fname"
+            id="name"
+            placeholder="Enter Your Name"
+          />
+          <br /><br />
+          <label>Email</label>
+          <br />
+          <input
+            type="email"
+            name="email"
+            id="name"
+            placeholder="Enter Your Email"
+          />
+          <br />
+          <br />
+          <label for="">Phone Number</label>
+          <br />
+          <input
+            type="text"
+            name="phone"
+            id="name"
+            placeholder="Enter Your Phone Number"
+          />
+          <br /><br />
+          <label for="">Gender</label>
+          <br />
+          &nbsp;&nbsp;&nbsp;
+          <input type="radio" name="gender" id="male" />
+          &nbsp;
+          <span id="male">Male</span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="gender" id="female" />
+          &nbsp;
+          <span id="female">Female</span>
+          <br /><br />
+          <label for="">Country</label>
+          <br />
+
+          <select name="country" id="country">
+            <option value="">Select a country</option>
+            <option value="india">India</option>
+            <option value="pakistan">Pakistan</option>
+            <option value="bhutan">Bhutan</option>
+            <option value="lanka">Sri Lanka</option>
+            <option value="china">China</option>
+          </select>
+          <br /><br />
+          <label for="">Password</label>
+          <br />
+          <input
+            type="password"
+            name="pwd"
+            id="name"
+            placeholder="Enter Password"
+          />
+          <br /><br />
+          <label>Experience(in years)</label>
+          <br />
+
+          <select name="expr" id="expr">
+            <option value="1">1-3</option>
+            <option value="2">3-5</option>
+            <option value="3">5+</option>
+          </select>
+          <input type="submit" value="Submit" name="submit" id="submit" />
+        </form>
+        <h4 style="margin-bottom: 5px; margin-left: 5px">
+          Already a user?<a href="/login/">Log in</a>
+        </h4>
+      </div>
+    </div>
+  </body>
+</html>
