@@ -13,11 +13,12 @@
       <div class="signUp">
         <h2>Sign Up</h2>
         <form id="sign" method="post">
+          {% csrf_token %}
           <label for="">Full Name</label>
           <br />
           <input
             type="text"
-            name="fname"
+            name="name"
             id="name"
             placeholder="Enter Your Name"
           />
@@ -44,11 +45,11 @@
           <label for="">Gender</label>
           <br />
           &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="gender" id="male" />
+          <input type="radio" name="gender" id="male" value="Male"/>
           &nbsp;
           <span id="male">Male</span>
           &nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio" name="gender" id="female" />
+          <input type="radio" name="gender" id="female" value="Female"/>
           &nbsp;
           <span id="female">Female</span>
           <br /><br />
@@ -68,18 +69,19 @@
           <br />
           <input
             type="password"
-            name="pwd"
-            id="name"
+            name="password"
+            id="password"
             placeholder="Enter Password"
           />
           <br /><br />
           <label>Experience(in years)</label>
           <br />
 
-          <select name="expr" id="expr">
-            <option value="1">1-3</option>
-            <option value="2">3-5</option>
-            <option value="3">5+</option>
+          <select name="experience" id="experience">
+            <option value="0">0</option>
+            <option value="1-3">1-3</option>
+            <option value="3-5">3-5</option>
+            <option value="5+">5+</option>
           </select>
           <input type="submit" value="Submit" name="submit" id="submit" />
         </form>
