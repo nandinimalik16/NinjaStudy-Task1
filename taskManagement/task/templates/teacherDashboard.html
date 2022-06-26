@@ -17,11 +17,14 @@
   <body>
     <nav>
       <div class="logo">
-        <h4>Welcome Teacher 1!</h4>
+        <h4>Welcome {{name}}!</h4>
       </div>
       <ul class="nav-links">
         <li>
           <a href="create_task/">Create Task</a>
+        </li>
+        <li>
+          <a href="/logout/">Logout</a>
         </li>
       </ul>
     </nav>
@@ -48,8 +51,12 @@
                 <td>{{task.task_status}}</td>
                 <td>
                   <div class="images">
-                    <a href="update_task/{{task.task_id}}/"><img src="{% static 'images/upd1.png' %}" alt="" /></a>
-                    <a href="delete_task/{{task.task_id}}/"><img src="{% static 'images/del1.png' %}" alt="" /></a>
+                    <a href="update_task/{{task.task_id}}/"
+                      ><img src="{% static 'images/upd1.png' %}" alt=""
+                    /></a>
+                    <a href="delete_task/{{task.task_id}}/"
+                      ><img src="{% static 'images/del1.png' %}" alt=""
+                    /></a>
                   </div>
                 </td>
                 <td>

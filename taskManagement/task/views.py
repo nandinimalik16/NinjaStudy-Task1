@@ -100,7 +100,7 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return redirect('/login/')
+    return redirect('/')
 
 @login_required(redirect_field_name='/login/')
 def studentDashboard(request,pk):
@@ -109,14 +109,14 @@ def studentDashboard(request,pk):
     taskAssignments=TaskAssignment.objects.filter(student_id=request.user)
     task_ids=[task.id for task in taskAssignments]
     tasks=Task.objects.filter(task_id__in=task_ids)
-    return render(request,'studentDashboard.html',{"tasks":tasks})
+    return render(request,'studentDashboard.html',{"tasks":tasks,"name":request.user.name})
 
 @login_required(redirect_field_name='/login/')
 def teacherDashboard(request,pk):
     if(request.user.id!=pk or request.user.role!='Teacher'):
         return HttpResponse('Unauthorized', status=401)
     tasks=Task.objects.filter(creator_id=request.user)
-    return render(request,'teacherDashboard.html',{"tasks":tasks})
+    return render(request,'teacherDashboard.html',{"tasks":tasks,"name":request.user.name})
 
 @login_required(redirect_field_name='/login/')
 def createTask(request,pk):
@@ -171,7 +171,8 @@ def viewTask(request,pk,task_id):
     print(students)
     students_ids=[task.student_id.id for task in tasks]
     add_students=CustomUser.objects.filter(role="Student").exclude(id__in=students_ids)
-    return render(request,'taskAssignment.html',{"students":students,"add_students":add_students})
+    task_name=Task.objects.get(task_id=task_id).task_name
+    return render(request,'taskAssignment.html',{"students":students,"add_students":add_students,"task_id":task_name})
 
 @login_required(redirect_field_name='/login/')
 def deleteTask(request,pk,task_id):

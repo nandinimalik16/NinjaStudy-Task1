@@ -36,13 +36,7 @@ nav {
 ul {
   list-style: none;
 }
-.nav-links li {
-  list-style: none;
-  border: solid 2px black;
-  padding: 10px;
-  border-radius: 35%;
-  cursor: pointer;
-}
+
 .nav-links li label {
   list-style: none;
   border: solid 2px black;
@@ -56,9 +50,14 @@ ul {
 
 .nav-links a {
   /* color: white; */
+  /* border: solid 2px black; */
   text-decoration: none;
   letter-spacing: none;
   font-weight: bold;
+  border: solid 2px black;
+  padding: 10px;
+  border-radius: 35%;
+  cursor: pointer;
   font-size: 25px;
 }
 
