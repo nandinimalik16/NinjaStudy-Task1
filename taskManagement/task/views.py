@@ -107,8 +107,11 @@ def studentDashboard(request,pk):
     if(request.user.id!=pk or request.user.role!='Student'):
         return HttpResponse('Unauthorized', status=401)
     taskAssignments=TaskAssignment.objects.filter(student_id=request.user)
-    task_ids=[task.id for task in taskAssignments]
+    print(request.user)
+    task_ids=[task.task_id.task_id for task in taskAssignments]
+    print(task_ids)
     tasks=Task.objects.filter(task_id__in=task_ids)
+    print(tasks)
     return render(request,'studentDashboard.html',{"tasks":tasks,"name":request.user.name})
 
 @login_required(redirect_field_name='/login/')
