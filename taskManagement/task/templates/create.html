@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Task</title>
+    <link rel="stylesheet" href="create.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="createT">
+        <h2>Create Task</h2>
+        <form id="create">
+          <label for="">Task Name</label>
+          <br />
+          <input
+            type="text"
+            name="tname"
+            id="name"
+            placeholder="Enter Task Name"
+            required
+          />
+          <br /><br />
+
+          <label>Task Description</label>
+          <br />
+          <textarea
+            name="message"
+            placeholder="Enter Description"
+            id="name"
+            cols="30"
+            rows="10"
+            required
+          ></textarea>
+          <br /><br />
+
+          <label for="">Task Status</label>
+          <br />
+          &nbsp;
+          <select name="country" id="country" required>
+            <option value="">Select Task Status</option>
+            <option value="1">Initiated</option>
+            <option value="2">Onhold</option>
+            <option value="3">Pending</option>
+            <option value="4">Completed</option>
+          </select>
+
+          <br /><br />
+
+          <input type="submit" value="Submit" name="submit" id="submit" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

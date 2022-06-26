@@ -1,0 +1,124 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+
+  font-family: "Roboto", sans-serif;
+}
+
+.logo {
+  /* color: white; */
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+}
+
+.nav-links li {
+  list-style: none;
+  border: solid 2px black;
+  padding: 10px;
+  border-radius: 35%;
+  cursor: pointer;
+}
+.nav-links a:hover {
+  color: orange;
+}
+
+.nav-links a {
+  /* color: white; */
+  text-decoration: none;
+  letter-spacing: none;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.nav-active {
+  transform: translateX(0%);
+}
+
+.main {
+  position: relative;
+  padding: 20px;
+  width: 100%;
+}
+
+.tasks {
+  margin-top: 20px;
+  text-transform: capitalize;
+}
+
+.task-list {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 15px;
+  min-width: 100%;
+  overflow: hidden;
+  border-radius: 5px 5px 0 0;
+}
+
+table thead tr {
+  color: #fff;
+  background: #34af6d;
+  text-align: left;
+  font-weight: bold;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.table tbody tr:nth-of-type(even) {
+  background: #f3f3f3;
+}
+
+.table tbody tr.active {
+  font-weight: bold;
+  color: #4ad489;
+}
+
+.table tbody tr:last-of-type {
+  border-bottom: 2px solid #4ad489;
+}
+
+.images {
+  display: flex;
+}
+
+td a,
+td a:visited {
+  text-decoration: none;
+}
+
+img {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
