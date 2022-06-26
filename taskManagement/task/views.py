@@ -169,7 +169,9 @@ def viewTask(request,pk,task_id):
     tasks=TaskAssignment.objects.filter(task_id=task_id)
     students=[{ "id":task.student_id.id,"name":task.student_id.name } for task in tasks]
     print(students)
-    return render(request,'taskAssignment.html',{"students":students})
+    students_ids=[task.student_id.id for task in tasks]
+    add_students=CustomUser.objects.filter(role="Student").exclude(id__in=students_ids)
+    return render(request,'taskAssignment.html',{"students":students,"add_students":add_students})
 
 @login_required(redirect_field_name='/login/')
 def deleteTask(request,pk,task_id):
@@ -179,10 +181,13 @@ def deleteTask(request,pk,task_id):
     Task.objects.get(task_id=task_id).delete()
     return redirect(f'/teacher/dashboard/{pk}/')
 
-# @login_required(redirect_field_name='/login/')
-# def addStudentToTask(request,pk,task_id):
-#     if(request.user.id!=pk or request.user.role!='Teacher'):
-#         return HttpResponse('Unauthorized', status=401)
-#     if request.method=="POST":
-#         form=
-#     return redirect(f'/teacher/dashboard/{pk}/view_task/{task_id}/')
+@login_required(redirect_field_name='/login/')
+def addStudentToTask(request,pk,task_id):
+    if(request.user.id!=pk or request.user.role!='Teacher'):
+        return HttpResponse('Unauthorized', status=401)
+    if request.method=="POST":
+        print(request.POST["student_id"])
+        c=CustomUser.objects.get(id=request.POST["student_id"])
+        assignment=TaskAssignment(student_id=c,task_id=Task.objects.get(task_id=task_id))
+        assignment.save()
+    return redirect(f'/teacher/dashboard/{pk}/view_task/{task_id}/')

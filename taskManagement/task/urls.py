@@ -18,6 +18,7 @@ urlpatterns = [
     path('teacher/dashboard/<int:pk>/update_task/<int:task_id>/',views.updateTask,name="teacher_dashboard_create"),
     path('teacher/dashboard/<int:pk>/update_task/<int:task_id>/submit/',views.submitUpdateTask,name="teacher_dashboard_submit_task"),
     path('teacher/dashboard/<int:pk>/view_task/<int:task_id>/',views.viewTask,name="teacher_dashboard"),
+    path('teacher/dashboard/<int:pk>/view_task/<int:task_id>/add_student/',views.addStudentToTask,name="teacher_dashboard"),
     path('teacher/dashboard/<int:pk>/delete_task/<int:task_id>/',views.deleteTask,name="teacher_dashboard")
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
