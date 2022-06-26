@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Assignment</title>
-    <link rel="stylesheet" href="taskAssignment.css" />
+    <link rel="stylesheet" href="{% static 'css/taskAssignment.css' %}" />
   </head>
   <body>
     <nav>
@@ -48,32 +49,16 @@
                 <tr>
                   <th>Student Id</th>
                   <th> Name</th>
-                  
-                  
                 </tr>
               </thead>
               <tbody>
+                {% for student in students %}
                 <tr>
-                  <td>1</td>
-                  <td>Stu 1</td>
-                  
-                  
-                  
-                  </td>
+                  <th>{{student.id}}</th>
+                  <th>{{student.name}}</th>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Stu 2</td>
-                  
-                  
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Stu 3</td>
-                  
-                  
-                  
-                </tr>
+                {% endfor %}
+
               </tbody>
             </table>
           </section>

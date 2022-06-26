@@ -5,21 +5,31 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login,logout as auth_logout
 
-from .models import CustomUser
+from .models import *
 from .forms import *
 # Create your views here.
 def index(request):
     return redirect('/home')
+
+def returnRedirect(user):
+    if user.role=='Teacher':
+        return redirect(f'/teacher/dashboard/{user.id}')
+    else:
+        return redirect(f'/student/dashboard/{user.id}')
 def homePage(request):
     try:
         if request.user.is_authenticated:
-            print(request.user)
-            print("yes authenticated")
+            return returnRedirect(request.user)
     except:
         pass
     return render(request,'index.html',{})
 
 def studentSignup(request):
+    try:
+        if request.user.is_authenticated:
+            return returnRedirect(request.user)
+    except:
+        pass
     if request.method=="POST":
         print(request.POST)
         form=studentRegistrationForm(request.POST)
@@ -38,6 +48,11 @@ def studentSignup(request):
     return render(request,'studentSignUp.html',{})
 
 def teacherSignup(request):
+    try:
+        if request.user.is_authenticated:
+            return returnRedirect(request.user)
+    except:
+        pass
     if request.method=="POST":
         form=teacherRegistrationForm(request.POST)
         if form.is_valid():
@@ -56,6 +71,11 @@ def teacherSignup(request):
     return render(request,'teacherSignUp.html',{})
 
 def login(request):
+    try:
+        if request.user.is_authenticated:
+            return returnRedirect(request.user)
+    except:
+        pass
     if request.method=="POST":
         form=loginForm(request.POST)
         if form.is_valid():
@@ -80,16 +100,89 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
+    return redirect('/login/')
 
 @login_required(redirect_field_name='/login/')
 def studentDashboard(request,pk):
     if(request.user.id!=pk or request.user.role!='Student'):
         return HttpResponse('Unauthorized', status=401)
-    return HttpResponse('')
+    taskAssignments=TaskAssignment.objects.filter(student_id=request.user)
+    task_ids=[task.id for task in taskAssignments]
+    tasks=Task.objects.filter(task_id__in=task_ids)
+    return render(request,'studentDashboard.html',{"tasks":tasks})
 
 @login_required(redirect_field_name='/login/')
 def teacherDashboard(request,pk):
     if(request.user.id!=pk or request.user.role!='Teacher'):
         return HttpResponse('Unauthorized', status=401)
-    return HttpResponse('')
+    tasks=Task.objects.filter(creator_id=request.user)
+    return render(request,'teacherDashboard.html',{"tasks":tasks})
 
+@login_required(redirect_field_name='/login/')
+def createTask(request,pk):
+    if(request.user.id!=pk or request.user.role!='Teacher'):
+        return HttpResponse('Unauthorized', status=401)
+    return render(request,'create.html')
+
+@login_required(redirect_field_name='/login/')
+def submitCreateTask(request,pk):
+    if request.method=="POST":
+        form=createTaskForm(request.POST)
+        if form.is_valid():
+            print("yes")
+            task=Task()
+            task.task_name=form.cleaned_data['task_name']
+            task.task_description=form.cleaned_data['task_description']
+            task.task_status=form.cleaned_data['task_status']
+            task.creator_id=request.user
+            task.save()
+            return redirect(f'/teacher/dashboard/{pk}/')
+    return redirect('create_task/')
+
+@login_required(redirect_field_name='/login/')
+def updateTask(request,pk,task_id):
+    if(request.user.id!=pk or request.user.role!='Teacher'):
+        return HttpResponse('Unauthorized', status=401)
+    task=Task.objects.filter(task_id=task_id).values()[0]
+    context={"task":task}
+    return render(request,'update.html',context)
+
+@login_required(redirect_field_name='/login/')
+def submitUpdateTask(request,pk,task_id):
+    if request.method=="POST":
+        form=createTaskForm(request.POST)
+        if form.is_valid():
+            print("yes")
+            task=Task.objects.get(task_id=task_id)
+            task.task_name=form.cleaned_data['task_name']
+            task.task_description=form.cleaned_data['task_description']
+            task.task_status=form.cleaned_data['task_status']
+            task.save()
+            return redirect(f'/teacher/dashboard/{pk}/')
+    return redirect('update_task/')
+
+@login_required(redirect_field_name='/login/')
+def viewTask(request,pk,task_id):
+    if(request.user.id!=pk or request.user.role!='Teacher'):
+        return HttpResponse('Unauthorized', status=401)
+    
+    tasks=TaskAssignment.objects.filter(task_id=task_id)
+    students=[{ "id":task.student_id.id,"name":task.student_id.name } for task in tasks]
+    print(students)
+    return render(request,'taskAssignment.html',{"students":students})
+
+@login_required(redirect_field_name='/login/')
+def deleteTask(request,pk,task_id):
+    if(request.user.id!=pk or request.user.role!='Teacher'):
+        return HttpResponse('Unauthorized', status=401)
+
+    Task.objects.get(task_id=task_id).delete()
+    return redirect(f'/teacher/dashboard/{pk}/')
+
+# @login_required(redirect_field_name='/login/')
+# def addStudentToTask(request,pk,task_id):
+#     if(request.user.id!=pk or request.user.role!='Teacher'):
+#         return HttpResponse('Unauthorized', status=401)
+#     if request.method=="POST":
+#         form=
+#     return redirect(f'/teacher/dashboard/{pk}/view_task/{task_id}/')

@@ -32,3 +32,8 @@ class teacherRegistrationForm(forms.Form):
 class loginForm(forms.Form):
     username_field=forms.CharField(max_length=50)
     password=forms.CharField(max_length=50)
+
+class createTaskForm(forms.Form):
+    task_name=forms.CharField(max_length=50)
+    task_description=forms.CharField()
+    task_status=forms.CharField(max_length=50)

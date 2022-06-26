@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="teach.css" />
+    <link rel="stylesheet" href="{% static 'css/teach.css' %}" />
   </head>
 
   <body>
@@ -20,7 +21,7 @@
       </div>
       <ul class="nav-links">
         <li>
-          <a href="create.html">Create Task</a>
+          <a href="create_task/">Create Task</a>
         </li>
       </ul>
     </nav>
@@ -39,60 +40,23 @@
               </tr>
             </thead>
             <tbody>
+              {% for task in tasks %}
               <tr>
-                <td>1</td>
-                <td>Task 1</td>
-                <td>
-                  First task to be done before monday,lets see if it is poosible
-                  or not
-                </td>
-                <td>Onhold</td>
+                <td>{{task.task_id}}</td>
+                <td>{{task.task_name}}</td>
+                <td>{{task.task_description}}</td>
+                <td>{{task.task_status}}</td>
                 <td>
                   <div class="images">
-                    <a href="update.html"><img src="upd1.png" alt="" /></a>
-                    <a href="#"><img src="del1.png" alt="" /></a>
+                    <a href="update_task/{{task.task_id}}/"><img src="{% static 'images/upd1.png' %}" alt="" /></a>
+                    <a href="delete_task/{{task.task_id}}/"><img src="{% static 'images/del1.png' %}" alt="" /></a>
                   </div>
                 </td>
                 <td>
-                  <a href="taskAss.html">View</a>
+                  <a href="view_task/{{task.task_id}}/">View</a>
                 </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Task 2</td>
-                <td>
-                  First task to be done before monday,lets see if it is poosible
-                  or not
-                </td>
-                <td>Completed</td>
-                <td>
-                  <div class="images">
-                    <a href="update.html"><img src="upd1.png" alt="" /></a>
-                    <a href="#"><img src="del1.png" alt="" /></a>
-                  </div>
-                </td>
-                <td>
-                  <a href="taskAss.html">View</a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Task 3</td>
-                <td>
-                  First task to be done before monday,lets see if it is poosible
-                  or not
-                </td>
-                <td>Pending</td>
-                <td>
-                  <div class="images">
-                    <a href="update.html"><img src="upd1.png" alt="" /></a>
-                    <a href="#"><img src="del1.png" alt="" /></a>
-                  </div>
-                </td>
-                <td>
-                  <a href="taskAss.html">View</a>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </section>

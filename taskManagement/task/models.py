@@ -37,7 +37,14 @@ class Task(models.Model):
         ("Completed","Completed"),
         ("OnHold","OnHold")
     ))
+    creator_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.task_name
 
 class TaskAssignment(models.Model):
     task_id=models.ForeignKey(Task,to_field="task_id",on_delete=models.CASCADE)
     student_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.task_id.task_name}-{self.student_id.name}"

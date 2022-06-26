@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,19 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Task</title>
-    <link rel="stylesheet" href="create.css" />
+    <link rel="stylesheet" href="{% static 'css/create.css' %}" />
   </head>
   <body>
     <div class="main">
       <div class="createT">
         <h2>Create Task</h2>
-        <form id="create">
+        <form id="create" action="submit/" method="post">
+          {% csrf_token %}
           <label for="">Task Name</label>
           <br />
           <input
             type="text"
-            name="tname"
-            id="name"
+            name="task_name"
+            id="task_name"
             placeholder="Enter Task Name"
             required
           />
@@ -26,9 +28,9 @@
           <label>Task Description</label>
           <br />
           <textarea
-            name="message"
+            name="task_description"
             placeholder="Enter Description"
-            id="name"
+            id="task_description"
             cols="30"
             rows="10"
             required
@@ -38,12 +40,12 @@
           <label for="">Task Status</label>
           <br />
           &nbsp;
-          <select name="country" id="country" required>
+          <select name="task_status" id="task_status" required>
             <option value="">Select Task Status</option>
-            <option value="1">Initiated</option>
-            <option value="2">Onhold</option>
-            <option value="3">Pending</option>
-            <option value="4">Completed</option>
+            <option value="Initiated">Initiated</option>
+            <option value="Onhold">Onhold</option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
           </select>
 
           <br /><br />

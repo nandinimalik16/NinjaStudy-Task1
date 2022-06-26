@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,43 +6,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Update Task</title>
-    <link rel="stylesheet" href="create.css" />
+    <link rel="stylesheet" href="{% static 'css/create.css' %}" />
   </head>
   <body>
     <div class="main">
       <div class="createT">
         <h2>Update Task_id</h2>
-        <form id="create">
+        <form id="create" action="submit/" method="post">
+          {% csrf_token %}
           <label for="">Task Name</label>
           <br />
           <input
             type="text"
-            name="tname"
-            id="name"
+            name="task_name"
+            id="task_name"
             placeholder="Enter Task Name"
+            value={{task.task_name}}
+            required
           />
           <br /><br />
 
           <label>Task Description</label>
           <br />
           <textarea
-            name="message"
+            name="task_description"
             placeholder="Enter Description"
-            id="name"
+            id="task_description"
             cols="30"
             rows="10"
-          ></textarea>
+            required
+          >{{task.task_description}}</textarea>
           <br /><br />
 
           <label for="">Task Status</label>
           <br />
           &nbsp;
-          <select name="country" id="country">
+          <select name="task_status" id="task_status" required>
             <option value="">Select Task Status</option>
-            <option value="1">Initiated</option>
-            <option value="2">Onhold</option>
-            <option value="3">Pending</option>
-            <option value="4">Completed</option>
+            {% if task.task_status == "Initiated" %}
+              <option value="Initiated" selected>Initiated</option>
+            {% else %}
+              <option value="Initiated">Initiated</option>
+            {% endif %}
+            {% if task.task_status == "Onhold" %}
+              <option value="Onhold" selected>Onhold</option>
+            {% else %}
+              <option value="Onhold">Onhold</option>
+            {% endif %}
+            {% if task.task_status == "Pending" %}
+              <option value="Pending" selected>Pending</option>
+            {% else %}
+              <option value="Pending">Pending</option>
+            {% endif %}
+            {% if task.task_status == "Completed" %}
+              <option value="Completed" selected>Completed</option>
+            {% else %}
+              <option value="Completed">Completed</option>
+            {% endif %}
           </select>
 
           <br /><br />
