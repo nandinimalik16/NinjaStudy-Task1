@@ -12,13 +12,14 @@
     <div class="main">
       <div class="logIn">
         <h2>Login</h2>
-        <form id="login" method="post">
+        <form id="login" method="post" action="/login/">
+          {% csrf_token %}
           <label for="">Email or Phone</label>
           <br />
           <input
             type="text"
-            name="fname"
-            id="name"
+            name="username_field"
+            id="username_field"
             placeholder="Enter Email or Phone Number"
           />
           <br /><br />
@@ -26,8 +27,8 @@
           <br />
           <input
             type="password"
-            name="pwd"
-            id="name"
+            name="password"
+            id="password"
             placeholder="Enter password"
           />
           <br /><br />

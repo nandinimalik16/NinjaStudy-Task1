@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
     username = None
     name= models.CharField(max_length=50,null=True)
     email = models.EmailField(_('email address'), unique=True)
-    phone = models.CharField(max_length=10,validators=[MinLengthValidator(10)],null=True)
+    phone = models.CharField(max_length=10,validators=[MinLengthValidator(10)],unique=True)
     gender=models.CharField(max_length=50,choices=(("Male","Male"),("Female","Female"),("Other","Other")))
     country=models.CharField(max_length=50,null=True)
     experience=models.CharField(max_length=50,null=True)

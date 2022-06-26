@@ -2,6 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 
 from .models import CustomUser
 from .forms import *
@@ -9,10 +11,12 @@ from .forms import *
 def index(request):
     return redirect('/home')
 def homePage(request):
+    try:
+        if request.user.is_authenticated:
+            print("yes authenticated")
+    except:
+        pass
     return render(request,'index.html',{})
-
-def login(request):
-    return render(request,'login.html',{})
 
 def studentSignup(request):
     if request.method=="POST":
@@ -49,3 +53,24 @@ def teacherSignup(request):
             return HttpResponseRedirect('/login/')
         print(form.errors)
     return render(request,'teacherSignUp.html',{})
+
+def login(request):
+    if request.method=="POST":
+        form=loginForm(request.POST)
+        if form.is_valid():
+            print(request.POST)
+            try:
+                user=CustomUser.objects.get(phone=form.cleaned_data['username_field'])
+                form.cleaned_data['username_field']=user.email
+            except CustomUser.DoesNotExist:
+                pass
+            print(form.cleaned_data)
+            user=authenticate(email=form.cleaned_data['username_field'],password=form.cleaned_data['password'])
+            if user is not None:
+                auth_login(request,user)
+                return HttpResponseRedirect('/')
+            else:
+                return HttpResponseRedirect('/login/')
+
+
+    return render(request,'login.html',{})
