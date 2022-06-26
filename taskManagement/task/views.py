@@ -1,9 +1,9 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login,logout as auth_logout
 
 from .models import CustomUser
 from .forms import *
@@ -13,6 +13,7 @@ def index(request):
 def homePage(request):
     try:
         if request.user.is_authenticated:
+            print(request.user)
             print("yes authenticated")
     except:
         pass
@@ -68,9 +69,27 @@ def login(request):
             user=authenticate(email=form.cleaned_data['username_field'],password=form.cleaned_data['password'])
             if user is not None:
                 auth_login(request,user)
-                return HttpResponseRedirect('/')
+                if user.role=="Teacher":
+                    return HttpResponseRedirect(f'/teacher/dashboard/{user.id}')
+                else:
+                    return HttpResponseRedirect(f'/student/dashboard/{user.id}')
             else:
                 return HttpResponseRedirect('/login/')
 
-
     return render(request,'login.html',{})
+
+def logout(request):
+    auth_logout(request)
+
+@login_required(redirect_field_name='/login/')
+def studentDashboard(request,pk):
+    if(request.user.id!=pk or request.user.role!='Student'):
+        return HttpResponse('Unauthorized', status=401)
+    return HttpResponse('')
+
+@login_required(redirect_field_name='/login/')
+def teacherDashboard(request,pk):
+    if(request.user.id!=pk or request.user.role!='Teacher'):
+        return HttpResponse('Unauthorized', status=401)
+    return HttpResponse('')
+

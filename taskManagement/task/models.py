@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator
+
 from .managers import CustomUserManager
 
 
@@ -25,3 +26,18 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class Task(models.Model):
+    task_id=models.AutoField(primary_key=True,auto_created=True)
+    task_name=models.CharField(max_length=50)
+    task_description=models.TextField()
+    task_status=models.CharField(max_length=50,choices=(
+        ("Initiate","Initiate"),
+        ("Pending","Pending"),
+        ("Completed","Completed"),
+        ("OnHold","OnHold")
+    ))
+
+class TaskAssignment(models.Model):
+    task_id=models.ForeignKey(Task,to_field="task_id",on_delete=models.CASCADE)
+    student_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
