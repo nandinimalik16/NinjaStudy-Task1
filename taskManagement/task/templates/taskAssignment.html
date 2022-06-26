@@ -17,6 +17,9 @@
         <li>
           <label for="show" class="show-btn">Add Student</label>
         </li>
+        <li>
+          <label for="show" class="show-btn">Logout</label>
+        </li>
       </ul>
     </nav>
     <div class="center">
@@ -43,27 +46,26 @@
       </div>
     </div>
     <section class="main">
-        <section class="tasks">
-          <section class="task-list">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Student Id</th>
-                  <th> Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for student in students %}
-                <tr>
-                  <th>{{student.id}}</th>
-                  <th>{{student.name}}</th>
-                </tr>
-                {% endfor %}
-
-              </tbody>
-            </table>
-          </section>
+      <section class="tasks">
+        <section class="task-list">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Student Id</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student in students %}
+              <tr>
+                <th>{{student.id}}</th>
+                <th>{{student.name}}</th>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </section>
       </section>
+    </section>
   </body>
 </html>
