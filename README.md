@@ -9,8 +9,16 @@ cd NinjaStudy-Task1
 
 ```sh
 virtualenv env
+```
+For Windows
+```sh
 env\Scripts\activate
 ```
+For Linux
+```sh
+source env/bin/activate
+```
+
 
 3. Then install the dependencies:
 
@@ -23,3 +31,11 @@ pip install -r requirements.txt
 cd taskManagement
 python manage.py runserver
 ```
+
+Default Student credentials:
+email- test@gmail.com
+password- 123
+
+Default Teacher credentials
+email- nandinimalik@gmail.com
+password-123
