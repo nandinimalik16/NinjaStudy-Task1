@@ -232,3 +232,8 @@ form .btn button {
   letter-spacing: 1px;
   cursor: pointer;
 }
+
+img {
+  width: 30px;
+  height: 30px;
+}

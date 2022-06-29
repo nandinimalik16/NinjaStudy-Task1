@@ -53,13 +53,22 @@
               <tr>
                 <th>Student Id</th>
                 <th>Name</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {% for student in students %}
               <tr>
-                <th>{{student.id}}</th>
-                <th>{{student.name}}</th>
+                <td>{{student.id}}</td>
+                <td>{{student.name}}</td>
+                <td>
+                  <a href="delete_student/{{student.id}}/"
+                    ><img
+                      src="{% static 'images/del1.png' %}"
+                      alt=""
+                      style="width: 30px"
+                  /></a>
+                </td>
               </tr>
               {% endfor %}
             </tbody>
